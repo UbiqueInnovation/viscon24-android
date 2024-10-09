@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<color name="black">#000000</color>
+	<color name="black_16">#D6D6D6</color>
+	<color name="black_08">#EBEBEB</color>
+	<color name="black_04">#F4F4F4</color>
+	<color name="white">#FFFFFF</color>
+
+	<color name="dark_blue">#111E26</color>
+	<color name="light_blue">#669ABA</color>
+	<color name="pale_blue">#DBEBF2</color>
+	<color name="dark_red">#C91C22</color>
+	<color name="pin_blue">#1F3D4C</color>
+	<color name="pin_blue_selected">#71AFCD</color>
+
+</resources>

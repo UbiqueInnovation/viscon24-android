@@ -1,0 +1,144 @@
+{
+  "version": 8,
+  "name": "simple_base_map_style",
+  "center": [8.349961425056108, 46.81133904939108],
+  "zoom": 7.2512975045452235,
+  "bearing": 0,
+  "pitch": 0,
+  "sources": {
+    "base_v1.0.0": {
+      "url": "https://vectortiles.geo.admin.ch/tiles/ch.swisstopo.base.vt/v1.0.0/tiles.json",
+      "type": "vector"
+    },
+    "swisstopo_relief_mono": {
+      "type": "raster",
+      "tiles": [
+        "https://wmts.geo.admin.ch/1.0.0/ch.swisstopo.swissalti3d-reliefschattierung_monodirektional/default/current/3857/{z}/{x}/{y}.png"
+      ],
+      "minzoom": 0,
+      "maxzoom": 19,
+      "scheme": "xyz"
+    }
+  },
+  "sprite": "https://vectortiles.geo.admin.ch/styles/ch.swisstopo.lightbasemap.vt/sprite/sprite",
+  "glyphs": "https://vectortiles.geo.admin.ch/fonts/{fontstack}/{range}.pbf",
+  "transition": {},
+  "layers": [
+    {
+      "id": "background",
+      "type": "background",
+      "layout": {"visibility": "visible"},
+      "paint": {"background-color": "rgba(252, 252, 252, 1)"}
+    },
+    {
+      "id": "relief",
+      "type": "raster",
+      "source": "swisstopo_relief_mono",
+      "layout": {"visibility": "visible"},
+      "paint": {
+        "raster-brightness-min": 0.8,
+        "raster-brightness-max": 1,
+        "raster-contrast": 0.4,
+        "raster-opacity": 0.75
+      }
+    },
+    {
+      "id": "water_line",
+      "type": "line",
+      "source": "base_v1.0.0",
+      "source-layer": "waterway",
+      "minzoom": 7,
+      "filter": [
+        "all",
+        ["!=", "intermittent", 1],
+        ["!in", "class", "riverbank", "shoreline", "shoreline_changing_level"]
+      ],
+      "layout": {"visibility": "visible"},
+      "paint": {
+        "line-blur": 0,
+        "line-color": "rgb(199, 224, 245)",
+        "line-width": 2.0,
+        "line-offset": 0,
+        "line-opacity": 0.7
+      }
+    },
+    {
+      "id": "water_polygon",
+      "type": "fill",
+      "source": "base_v1.0.0",
+      "source-layer": "water",
+      "layout": {"visibility": "visible"},
+      "paint": {
+        "fill-color": "rgb(199, 224, 245)"
+      }
+    },
+    {
+      "id": "boundary",
+      "type": "line",
+      "source": "base_v1.0.0",
+      "source-layer": "boundary",
+      "minzoom": 0,
+      "layout": {
+        "line-cap": ["literal", "round"],
+        "line-join": ["literal", "miter"],
+        "visibility": "visible"
+      },
+      "paint": {
+        "line-blur": 1,
+        "line-color": "hsl(300, 55%, 80%)",
+        "line-width": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          7,
+          ["match", ["get", "admin_level"], 2, 3, 1],
+          18,
+          ["match", ["get", "admin_level"], 2, 16, 10]
+        ],
+        "line-opacity": {"stops": [[13, 1], [14, 0.8]]}
+      }
+    },
+    {
+      "id": "place_city",
+      "type": "symbol",
+      "source": "base_v1.0.0",
+      "source-layer": "place",
+      "minzoom": 2,
+      "maxzoom": 14,
+      "filter": ["all", ["==", "class", "city"]],
+      "layout": {
+        "icon-size": 1,
+        "text-font": ["Frutiger Neue Condensed Bold"],
+        "text-size": [
+          "interpolate",
+          ["exponential", 1.2],
+          ["zoom"],
+          1,
+          12,
+          16,
+          48
+        ],
+        "icon-image": "circle_circle_dark_grey_10",
+        "text-field": ["get", "name:latin"],
+        "visibility": "visible",
+        "text-anchor": "bottom-left",
+        "text-offset": ["literal", [0.35, 0.1]],
+        "text-justify": "auto",
+        "text-padding": 10,
+        "icon-optional": false,
+        "symbol-z-order": ["literal", "auto"],
+        "text-max-width": 10,
+        "text-transform": "uppercase",
+        "symbol-sort-key": ["to-number", ["get", "rank"]],
+        "text-letter-spacing": 0.025
+      },
+      "paint": {
+        "text-color": "rgba(64, 64, 64, 1)",
+        "icon-opacity": ["step", ["zoom"], 1, 11, 0],
+        "text-opacity": 1,
+        "text-halo-blur": 1,
+        "text-halo-color": "rgba(242, 242, 242, 0.6)",
+        "text-halo-width": 1.0
+      }
+    }]
+}

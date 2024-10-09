@@ -1,0 +1,7 @@
+<resources>
+	<string name="app_name">Best Map</string>
+	<string name="save_button">Save</string>
+	<string name="delete_button">Remove Pin</string>
+	<string name="create_poi_name_label">Title</string>
+	<string name="error_vector_layer">Failed adding the vector layer</string>
+</resources>
