@@ -99,7 +99,7 @@ fun MapOverlay(
 			{ mainViewModel.onClickIcons(emptyList()) },
 			{ f -> onBottomSheetExpanded(pin.coord, f) }) {
 			PoiBottomSheetContent(pin) {
-				mainViewModel.removePin(pin.id)
+				// TODO [POI CONTENT] remove pin from database
 			}
 		}
 	}
