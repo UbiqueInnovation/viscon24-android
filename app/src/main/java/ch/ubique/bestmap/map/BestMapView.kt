@@ -3,23 +3,18 @@ package ch.ubique.bestmap.map
 import android.content.Context
 import android.location.Location
 import androidx.lifecycle.findViewTreeLifecycleOwner
-import ch.ubique.bestmap.extension.create
 import ch.ubique.bestmap.map.util.BestMapClickListener
 import ch.ubique.bestmap.map.util.SimpleTouchListener
 import ch.ubique.bestmap.map.util.VectorLayerState
 import io.openmobilemaps.gps.providers.LocationUpdateListener
-import io.openmobilemaps.mapscore.map.loader.DataLoader
-import io.openmobilemaps.mapscore.map.loader.FontLoader
 import io.openmobilemaps.mapscore.map.view.MapView
 import io.openmobilemaps.mapscore.shared.graphics.common.Vec2F
 import io.openmobilemaps.mapscore.shared.map.MapConfig
 import io.openmobilemaps.mapscore.shared.map.coordinates.CoordinateSystemFactory
 import io.openmobilemaps.mapscore.shared.map.coordinates.CoordinateSystemIdentifiers
 import io.openmobilemaps.mapscore.shared.map.layers.icon.IconInfoInterface
-import io.openmobilemaps.mapscore.shared.map.layers.tiled.vector.Tiled2dMapVectorLayerInterface
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import java.nio.charset.StandardCharsets
 
 class BestMapView(context: Context) : MapView(context), LocationUpdateListener {
 
@@ -48,9 +43,12 @@ class BestMapView(context: Context) : MapView(context), LocationUpdateListener {
 	private val vectorLayerStateMutable = MutableStateFlow(VectorLayerState.UNINITIALIZED)
 	val vectorLayerState = vectorLayerStateMutable.asStateFlow()
 
+	/*
+	TODO [VECTOR LAYER]
 	private val density = resources.displayMetrics.density
 	private val dataLoader = DataLoader(context, context.cacheDir, 16 * 1024 * 1024L)
 	private val fontLoader = FontLoader(context, "map/fonts/", density)
+	 */
 
 	init {
 		setupMap(MapConfig(CoordinateSystemFactory.getEpsg2056System()))
@@ -74,16 +72,12 @@ class BestMapView(context: Context) : MapView(context), LocationUpdateListener {
 
 	fun addVectorLayer() {
 		// TODO [STYLE JSON] change map style to base_map_style
-		val styleJson = context.assets.open("map/styles/simple_base_map_style.json")
-			.bufferedReader(StandardCharsets.UTF_8).use { it.readText() }
-		val vectorLayer: Tiled2dMapVectorLayerInterface? = Tiled2dMapVectorLayerInterface.create(
-			layerName = "SwisstopoBaseMap",
-			styleJson = styleJson,
-			dataLoader = dataLoader,
-			fontLoader = fontLoader
-		)
+		// TODO [VECTOR LAYER] load vector style.json
+		// TODO [VECTOR LAYER] create vector layer
+		val vectorLayer = Unit
+
 		if (vectorLayer != null) {
-			insertLayerAt(vectorLayer.asLayerInterface(), BASE_LAYER_INDEX)
+			// TODO [VECTOR LAYER] add vector layer to map
 			vectorLayerStateMutable.value = VectorLayerState.INITIALIZED
 		} else {
 			vectorLayerStateMutable.value = VectorLayerState.ERROR
