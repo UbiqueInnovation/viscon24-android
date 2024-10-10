@@ -14,7 +14,6 @@ import ch.ubique.bestmap.map.util.VectorLayerState
 import ch.ubique.ubdiag.composables.mainActivity
 import io.openmobilemaps.mapscore.map.view.MapViewState
 import io.openmobilemaps.mapscore.shared.map.coordinates.Coord
-import io.openmobilemaps.mapscore.shared.map.coordinates.CoordinateSystemIdentifiers
 
 @Composable
 fun App(innerPadding: PaddingValues) {
@@ -25,14 +24,7 @@ fun App(innerPadding: PaddingValues) {
 
 	if (mapViewState?.value == MapViewState.RESUMED && !cameraPositionInitialized.value) {
 		LaunchedEffect(Unit) {
-			mapView.value?.mapInterface?.getCamera()?.moveToCenterPositionZoom(
-				centerPosition = Coord(
-					systemIdentifier = CoordinateSystemIdentifiers.EPSG4326(),
-					x = 8.5404656,
-					y = 47.377858,
-					z = 0.0
-				), zoom = 30000.0, animated = false
-			)
+			// TODO [INITIAL CAMERA POS] set initial camera position and zoom to Zürich
 			cameraPositionInitialized.value = true
 		}
 	}
