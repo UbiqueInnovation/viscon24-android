@@ -8,10 +8,8 @@ import ch.ubique.bestmap.map.util.SimpleTouchListener
 import ch.ubique.bestmap.map.util.VectorLayerState
 import io.openmobilemaps.gps.providers.LocationUpdateListener
 import io.openmobilemaps.mapscore.map.view.MapView
+import io.openmobilemaps.mapscore.shared.graphics.common.Color
 import io.openmobilemaps.mapscore.shared.graphics.common.Vec2F
-import io.openmobilemaps.mapscore.shared.map.MapConfig
-import io.openmobilemaps.mapscore.shared.map.coordinates.CoordinateSystemFactory
-import io.openmobilemaps.mapscore.shared.map.coordinates.CoordinateSystemIdentifiers
 import io.openmobilemaps.mapscore.shared.map.layers.icon.IconInfoInterface
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -51,7 +49,12 @@ class BestMapView(context: Context) : MapView(context), LocationUpdateListener {
 	 */
 
 	init {
-		setupMap(MapConfig(CoordinateSystemFactory.getEpsg2056System()))
+		// TODO [SETUP MAP] setup map
+
+		/*
+		//TODO [SETUP MAP] test your map by setting the background color
+		setBackgroundColor(Color(1.0f, 0.0f, 0.0f, 1.0f))
+		*/
 
 		addVectorLayer()
 		addGpsLayer()
@@ -109,7 +112,7 @@ class BestMapView(context: Context) : MapView(context), LocationUpdateListener {
 	override fun onAttachedToWindow() {
 		super.onAttachedToWindow()
 		val lifecycleOwner = requireNotNull(findViewTreeLifecycleOwner())
-		registerLifecycle(lifecycleOwner.lifecycle)
+		// TODO [SETUP MAP] register view lifecycle to map view
 		// TODO [GPS] register lifecycle in gps layer
 		// TODO [GPS] locationProvider.registerLocationUpdateListener(this)
 	}

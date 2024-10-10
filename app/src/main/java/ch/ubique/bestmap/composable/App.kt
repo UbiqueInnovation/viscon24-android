@@ -4,16 +4,13 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.view.isVisible
 import androidx.lifecycle.viewmodel.compose.viewModel
 import ch.ubique.bestmap.MainViewModel
 import ch.ubique.bestmap.map.BestMapView
-import ch.ubique.bestmap.map.util.BestMapClickListener
 import ch.ubique.bestmap.map.util.VectorLayerState
 import ch.ubique.ubdiag.composables.mainActivity
 import io.openmobilemaps.mapscore.map.view.MapViewState
-import io.openmobilemaps.mapscore.shared.map.coordinates.Coord
 
 @Composable
 fun App(innerPadding: PaddingValues) {
@@ -32,6 +29,8 @@ fun App(innerPadding: PaddingValues) {
 	val icons = mainViewModel.icons.collectAsState(emptyList())
 	// TODO [ADD NEW POI] set collected icons on map
 
+	/*
+	TODO [SETUP MAP]
 	AndroidView(
 		modifier = Modifier.fillMaxSize(),
 		factory = { context ->
@@ -54,6 +53,7 @@ fun App(innerPadding: PaddingValues) {
 			}
 		}
 	)
+	 */
 
 	val mapVectorLayerState = mapView.value?.vectorLayerState?.collectAsState()
 	val hasVectorLayerError = mapVectorLayerState?.value == VectorLayerState.ERROR
