@@ -16,8 +16,6 @@ import io.openmobilemaps.mapscore.shared.map.MapConfig
 import io.openmobilemaps.mapscore.shared.map.coordinates.CoordinateSystemFactory
 import io.openmobilemaps.mapscore.shared.map.coordinates.CoordinateSystemIdentifiers
 import io.openmobilemaps.mapscore.shared.map.layers.icon.IconInfoInterface
-import io.openmobilemaps.mapscore.shared.map.layers.icon.IconLayerCallbackInterface
-import io.openmobilemaps.mapscore.shared.map.layers.icon.IconLayerInterface
 import io.openmobilemaps.mapscore.shared.map.layers.tiled.vector.Tiled2dMapVectorLayerInterface
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -44,7 +42,8 @@ class BestMapView(context: Context) : MapView(context), LocationUpdateListener {
 	var currentLocation: Location? = null
 		private set
 
-	private val iconLayer = IconLayerInterface.create()
+
+	// TODO [ICON LAYER] create icon layer as field
 
 	private val vectorLayerStateMutable = MutableStateFlow(VectorLayerState.UNINITIALIZED)
 	val vectorLayerState = vectorLayerStateMutable.asStateFlow()
@@ -95,22 +94,21 @@ class BestMapView(context: Context) : MapView(context), LocationUpdateListener {
 	}
 
 	private fun addIconLayer() {
-		iconLayer.apply {
-			setLayerClickable(true)
-			setCallbackHandler(object : IconLayerCallbackInterface() {
-				override fun onClickConfirmed(icons: ArrayList<IconInfoInterface>): Boolean {
-					clickListener?.onClickIcons(icons.map { it.getIdentifier() })
-					return true
-				}
+		// TODO [ICON LAYER] customize icon layer to be clickable and add callback to handle clicks
+		// TODO [ICON LAYER] add icon layer to map
 
-				override fun onLongPress(icons: ArrayList<IconInfoInterface>): Boolean {
-					// not used
-					return false
-				}
-
-			})
-		}
-		insertLayerAt(iconLayer.asLayerInterface(), ICON_LAYER_INDEX)
+		/*
+		TODO [ICON LAYER] test your icon layer using this icon
+		val testIcon = IconFactory.createIcon(
+			identifier = "Test-Icon",
+			coordinate = Coord(CoordinateSystemIdentifiers.EPSG4326(), 8.54378, 47.37568, 0.0),
+			texture = BitmapTextureHolder(drawable = requireNotNull(ContextCompat.getDrawable(context, R.drawable.ic_star))),
+			iconSize = Vec2F(84f, 84f),
+			scaleType = IconType.INVARIANT,
+			blendMode = BlendMode.NORMAL
+		)
+		iconLayer.add(testIcon)
+		 */
 	}
 
 	override fun onAttachedToWindow() {
@@ -139,6 +137,6 @@ class BestMapView(context: Context) : MapView(context), LocationUpdateListener {
 	}
 
 	fun setIcons(icons: List<IconInfoInterface>) {
-		iconLayer.setIcons(icons.toCollection(ArrayList()))
+		// TODO [ICON LAYER] set icons on icon layer
 	}
 }

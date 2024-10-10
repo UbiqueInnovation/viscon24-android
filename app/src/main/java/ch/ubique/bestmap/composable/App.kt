@@ -51,7 +51,11 @@ fun App(innerPadding: PaddingValues) {
 					}
 
 					override fun onClickIcons(icons: List<String>) {
-						mainViewModel.onClickIcons(icons)
+						// TODO [ICON LAYER] call onCLickIcons
+						/*
+						TODO [ICON LAYER] test your click callback with this toast
+						GlobalScope.launch(Dispatchers.Main) { Toast.makeText(context, "Icons clicked: $icons", Toast.LENGTH_SHORT).show() }
+						 */
 						// TODO [ADD NEW POI] clear long press coordinates
 					}
 				})
