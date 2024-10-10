@@ -66,8 +66,9 @@ class BestMapView(context: Context) : MapView(context), LocationUpdateListener {
 	private fun addTouchListener() {
 		requireMapInterface().getTouchHandler().addListener(object : SimpleTouchListener() {
 			override fun onLongPress(posScreen: Vec2F): Boolean {
-				clickListener?.onLongPressBaseMap(requireMapInterface().getCamera().coordFromScreenPosition(posScreen))
-				return true
+				// TODO [ADD NEW POI] get the coordinate of the screen position from the map camera
+				// TODO [ADD NEW POI] call onLongPress with the resulting coordinate
+				return false
 			}
 		})
 	}

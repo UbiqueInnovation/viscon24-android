@@ -64,8 +64,7 @@ fun MapOverlay(
 	val longPressCoordinate = mainViewModel.longPressCoordinates.collectAsState()
 
 	longPressCoordinate.value?.let { pinCoordinate ->
-		mainViewModel.clearLongPressCoordinates()
-		mainViewModel.addPin("Poi", null, pinCoordinate)
+		// TODO [ADD NEW POI] clear long press coordinates and save pin without icon to database
 		/*
 		TODO [NEW POI SHEET]
 		BottomSheet(

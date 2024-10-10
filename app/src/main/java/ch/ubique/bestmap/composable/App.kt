@@ -38,7 +38,7 @@ fun App(innerPadding: PaddingValues) {
 	}
 
 	val icons = mainViewModel.icons.collectAsState(emptyList())
-	mapView.value?.setIcons(icons.value)
+	// TODO [ADD NEW POI] set collected icons on map
 
 	AndroidView(
 		modifier = Modifier.fillMaxSize(),
@@ -47,13 +47,12 @@ fun App(innerPadding: PaddingValues) {
 				mapView.value = it
 				it.setClickListener(object : BestMapClickListener {
 					override fun onLongPressBaseMap(coordinate: Coord) {
-						mainViewModel.clearClickedIcons()
-						mainViewModel.onLongPress(coordinate)
+						// TODO [ADD NEW POI] call onLongPress and clear clicked icon identifiers
 					}
 
 					override fun onClickIcons(icons: List<String>) {
-						mainViewModel.clearLongPressCoordinates()
 						mainViewModel.onClickIcons(icons)
+						// TODO [ADD NEW POI] clear long press coordinates
 					}
 				})
 			}
