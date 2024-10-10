@@ -3,7 +3,6 @@ package ch.ubique.bestmap.composable
 import android.Manifest
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
@@ -29,7 +28,6 @@ import ch.ubique.bestmap.map.BestMapView
 import ch.ubique.bestmap.repository.model.Pin
 import ch.ubique.ubdiag.composables.mainActivity
 import io.openmobilemaps.mapscore.shared.map.coordinates.Coord
-import io.openmobilemaps.mapscore.shared.map.coordinates.CoordinateSystemIdentifiers
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -40,6 +38,8 @@ fun MapOverlay(
 ) {
 	val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
 
+	/*
+	TODO [GPS]
 	Box(
 		modifier = modifier.padding(
 			PaddingValues(0.dp, innerPadding.calculateTopPadding(), 0.dp, innerPadding.calculateBottomPadding())
@@ -47,6 +47,7 @@ fun MapOverlay(
 	) {
 		GpsButton(mapView)
 	}
+	 */
 
 	val onBottomSheetExpanded: (Coord, Float) -> Unit = { coordinates, bottomPadding ->
 		if (bottomPadding > 0f) {
@@ -118,20 +119,7 @@ private fun BoxScope.GpsButton(mapView: BestMapView?) {
 	FloatingActionButton(
 		onClick = {
 			if (context.hasLocationPermission()) {
-				mapView?.apply {
-					currentLocation?.let {
-						getCamera().moveToCenterPositionZoom(
-							centerPosition = Coord(
-								systemIdentifier = CoordinateSystemIdentifiers.EPSG4326(),
-								x = it.longitude,
-								y = it.latitude,
-								z = it.altitude
-							),
-							zoom = 5000.0,
-							animated = true
-						)
-					}
-				}
+				// TODO [GPS] move camera to current location
 			} else {
 				launcher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
 			}

@@ -7,11 +7,7 @@ import ch.ubique.bestmap.extension.create
 import ch.ubique.bestmap.map.util.BestMapClickListener
 import ch.ubique.bestmap.map.util.SimpleTouchListener
 import ch.ubique.bestmap.map.util.VectorLayerState
-import io.openmobilemaps.gps.GpsLayer
-import io.openmobilemaps.gps.GpsProviderType
 import io.openmobilemaps.gps.providers.LocationUpdateListener
-import io.openmobilemaps.gps.shared.gps.GpsMode
-import io.openmobilemaps.gps.style.GpsStyleInfoFactory
 import io.openmobilemaps.mapscore.map.loader.DataLoader
 import io.openmobilemaps.mapscore.map.loader.FontLoader
 import io.openmobilemaps.mapscore.map.view.MapView
@@ -37,11 +33,14 @@ class BestMapView(context: Context) : MapView(context), LocationUpdateListener {
 
 	private var clickListener: BestMapClickListener? = null
 
+	/*
+	TODO [GPS]
 	private val locationProvider = GpsProviderType.GOOGLE_FUSED.getProvider(context)
 	private val gpsLayer = GpsLayer(context, GpsStyleInfoFactory.createDefaultStyle(context), locationProvider).apply {
 		setMode(GpsMode.STANDARD)
 		setHeadingEnabled(false)
 	}
+	 */
 	var currentLocation: Location? = null
 		private set
 
@@ -91,7 +90,7 @@ class BestMapView(context: Context) : MapView(context), LocationUpdateListener {
 	}
 
 	private fun addGpsLayer() {
-		insertLayerAt(gpsLayer.asLayerInterface(), GPS_LAYER_INDEX)
+		// TODO [GPS] add gps layer to map
 	}
 
 	private fun addIconLayer() {
@@ -117,13 +116,13 @@ class BestMapView(context: Context) : MapView(context), LocationUpdateListener {
 		super.onAttachedToWindow()
 		val lifecycleOwner = requireNotNull(findViewTreeLifecycleOwner())
 		registerLifecycle(lifecycleOwner.lifecycle)
-		gpsLayer.registerLifecycle(lifecycleOwner.lifecycle)
-		locationProvider.registerLocationUpdateListener(this)
+		// TODO [GPS] register lifecycle in gps layer
+		// TODO [GPS] locationProvider.registerLocationUpdateListener(this)
 	}
 
 	override fun onDetachedFromWindow() {
 		super.onDetachedFromWindow()
-		locationProvider.unregisterLocationUpdateListener(this)
+		// TODO [GPS] locationProvider.unregisterLocationUpdateListener(this)
 	}
 
 	override fun onLocationUpdate(newLocation: Location) {
@@ -131,7 +130,7 @@ class BestMapView(context: Context) : MapView(context), LocationUpdateListener {
 	}
 
 	fun notifyLocationPermissionGranted() {
-		locationProvider.notifyLocationPermissionGranted()
+		// TODO [GPS] locationProvider.notifyLocationPermissionGranted()
 	}
 
 	fun setClickListener(clickListener: BestMapClickListener?) {
