@@ -73,7 +73,8 @@ class BestMapView(context: Context) : MapView(context), LocationUpdateListener {
 	}
 
 	fun addVectorLayer() {
-		val styleJson = context.assets.open("map/styles/base_map_style.json")
+		// TODO [STYLE JSON] change map style to base_map_style
+		val styleJson = context.assets.open("map/styles/simple_base_map_style.json")
 			.bufferedReader(StandardCharsets.UTF_8).use { it.readText() }
 		val vectorLayer: Tiled2dMapVectorLayerInterface? = Tiled2dMapVectorLayerInterface.create(
 			layerName = "SwisstopoBaseMap",
