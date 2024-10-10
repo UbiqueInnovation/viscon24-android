@@ -25,7 +25,6 @@ import ch.ubique.bestmap.MainViewModel
 import ch.ubique.bestmap.R
 import ch.ubique.bestmap.extension.hasLocationPermission
 import ch.ubique.bestmap.map.BestMapView
-import ch.ubique.bestmap.repository.model.Pin
 import ch.ubique.ubdiag.composables.mainActivity
 import io.openmobilemaps.mapscore.shared.map.coordinates.Coord
 
@@ -65,6 +64,10 @@ fun MapOverlay(
 	val longPressCoordinate = mainViewModel.longPressCoordinates.collectAsState()
 
 	longPressCoordinate.value?.let { pinCoordinate ->
+		mainViewModel.clearLongPressCoordinates()
+		mainViewModel.addPin("Poi", null, pinCoordinate)
+		/*
+		TODO [NEW POI SHEET]
 		BottomSheet(
 			sheetState,
 			innerPadding,
@@ -75,21 +78,13 @@ fun MapOverlay(
 			{ f -> onBottomSheetExpanded(pinCoordinate, f) }) {
 			CreatePoiBottomSheetContent(
 				{ tempIcon ->
-					mainViewModel.setNewIconProperties(
-						Pin(
-							id = "__NEW_PIN__",
-							title = "",
-							iconName = tempIcon,
-							coord = pinCoordinate
-						)
-					)
+					// TODO [NEW POI SHEET] propagate modified icon details
 				},
 				{ title, icon ->
-					mainViewModel.clearLongPressCoordinates()
-					mainViewModel.addPin(title, icon, pinCoordinate)
-					mainViewModel.clearNewPin()
+					// TODO [NEW POI SHEET] clear long press coordinates, save pin to database and clear temporary pin state
 				})
 		}
+		 */
 	}
 
 	val selectedPin = mainViewModel.selectedPin.collectAsState(null)
